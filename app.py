@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import ibm_db
 import re
-from sendemail import sendmail,sendgridmail
-import smtplib
+
   
 app = Flask(__name__)
   
@@ -74,11 +73,7 @@ def registet():
             ibm_db.bind_param(prep_stmt, 2, email)
             ibm_db.bind_param(prep_stmt, 3, password)
             ibm_db.execute(prep_stmt)
-            msg = 'You have successfully registered !'
-            TEXT = "Hello "+username + ",\n\n"+ """Thanks for applying registring at smartinterns """ 
-            message  = 'Subject: {}\n\n{}'.format("smartinterns Carrers", TEXT)
-            #sendmail(TEXT,email)
-            sendgridmail(email,TEXT)
+            msg = 'You have successfully registered !
     elif request.method == 'POST':
         msg = 'Please fill out the form !'
     return render_template('register.html', msg = msg)
