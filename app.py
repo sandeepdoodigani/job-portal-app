@@ -54,7 +54,7 @@ def registet():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-        sql = "SELECT * FROM users WHERE username =?"
+        sql = "SELECT * FROM job WHERE username =?"
         stmt = ibm_db.prepare(conn, sql)
         ibm_db.bind_param(stmt,1,username)
         ibm_db.execute(stmt)
@@ -113,15 +113,7 @@ def apply():
          ibm_db.bind_param(prep_stmt, 4, skills)
          ibm_db.bind_param(prep_stmt, 5, jobs)
          ibm_db.execute(prep_stmt)
-         msg = 'You have successfully applied for job !'
-         session['loggedin'] = True
-         TEXT = "Hello sandeep,a new appliaction for job position" +jobs+"is requested"
-         
-         #sendmail(TEXT,"sandeep@thesmartbridge.com")
-         sendgridmail("sandeep@thesmartbridge.com",TEXT)
-         
-         
-         
+
      elif request.method == 'POST':
          msg = 'Please fill out the form !'
      return render_template('apply.html', msg = msg)
